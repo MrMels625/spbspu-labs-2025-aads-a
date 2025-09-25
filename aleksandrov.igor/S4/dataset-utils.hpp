@@ -3,7 +3,7 @@
 
 #include <ios>
 #include <string>
-#include "tree.hpp"
+#include <tree/tree.hpp>
 
 namespace aleksandrov
 {
@@ -15,7 +15,7 @@ namespace aleksandrov
   void printDataset(std::ostream& out, const std::string& name, const Datasets& src);
   void complement(const std::string& name, Dataset&, Dataset&, Datasets& src);
   void intersect(const std::string& name, Dataset&, Dataset&, Datasets& src);
-  void unionCmd(const std::string& name, Dataset&, Dataset&, Datasets& src);
+  void unite(const std::string& name, Dataset&, Dataset&, Datasets& src);
 }
 
 #endif

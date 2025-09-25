@@ -1,16 +1,16 @@
-#ifndef STACK_HPP
-#define STACK_HPP
+#ifndef QUEUE_HPP
+#define QUEUE_HPP
 
 #include "deque.hpp"
 
 namespace aleksandrov
 {
   template< class T >
-  class Stack
+  class Queue
   {
   public:
-    T& top();
-    const T& top() const;
+    T& front();
+    const T& front() const;
 
     bool empty() const noexcept;
     size_t size() const noexcept;
@@ -24,105 +24,105 @@ namespace aleksandrov
     template< class... Args >
     void emplace(Args&&...);
     void pop() noexcept;
-    void swap(Stack&) noexcept;
+    void swap(Queue&) noexcept;
 
-    bool operator==(const Stack&) const;
-    bool operator!=(const Stack&) const;
+    bool operator==(const Queue&) const;
+    bool operator!=(const Queue&) const;
 
   private:
     Deque< T > container_;
   };
 
   template< class T >
-  T& Stack< T >::top()
+  T& Queue< T >::front()
   {
-    assert(!empty() && "Cannot access to element in empty stack!");
-    return const_cast< T& >(static_cast< const Stack& >(*this).top());
+    assert(!empty() && "Cannot access to element in empty queue!");
+    return const_cast< T& >(static_cast< const Queue& >(*this).front());
   }
 
   template< class T >
-  const T& Stack< T >::top() const
+  const T& Queue< T >::front() const
   {
-    assert(!empty() && "Cannot access to element in empty stack!");
-    return container_.back();
+    assert(!empty() && "Cannot access to element in empty queue!");
+    return container_.front();
   }
 
   template< class T >
-  bool Stack< T >::empty() const noexcept
+  bool Queue< T >::empty() const noexcept
   {
     return container_.empty();
   }
 
   template< class T >
-  size_t Stack< T >::size() const noexcept
+  size_t Queue< T >::size() const noexcept
   {
     return container_.size();
   }
 
   template< class T >
-  size_t Stack< T >::maxSize() const noexcept
+  size_t Queue< T >::maxSize() const noexcept
   {
     return container_.maxSize();
   }
 
   template< class T >
-  size_t Stack< T >::capacity() const noexcept
+  size_t Queue< T >::capacity() const noexcept
   {
     return container_.capacity();
   }
 
   template< class T >
-  void Stack< T >::shrinkToFit()
+  void Queue< T >::shrinkToFit()
   {
-    return container_.shrinkToFit();
+    container_.shrinkToFit();
   }
 
   template< class T >
-  void Stack< T >::clear() noexcept
+  void Queue< T >::clear() noexcept
   {
     container_.clear();
   }
 
   template< class T >
-  void Stack< T >::push(const T& value)
+  void Queue< T >::push(const T& value)
   {
     container_.pushBack(value);
   }
 
   template< class T >
-  void Stack< T >::push(T&& value)
+  void Queue< T >::push(T&& value)
   {
     container_.pushBack(std::move(value));
   }
 
   template< class T >
   template< class... Args >
-  void Stack< T >::emplace(Args&&... args)
+  void Queue< T >::emplace(Args&&... args)
   {
     container_.emplaceBack(std::forward< Args >(args)...);
   }
 
   template< class T >
-  void Stack< T >::pop() noexcept
+  void Queue< T >::pop() noexcept
   {
-    assert(!empty() && "Cannot pop from empty stack!");
-    container_.popBack();
+    assert(!empty() && "Cannot pop from empty queue!");
+    container_.popFront();
   }
 
   template< class T >
-  void Stack< T >::swap(Stack& other) noexcept
+  void Queue< T >::swap(Queue& other) noexcept
   {
     container_.swap(other.container_);
   }
 
   template< class T >
-  bool Stack< T >::operator==(const Stack& rhs) const
+  bool Queue< T >::operator==(const Queue& rhs) const
   {
     return container_ == rhs.container_;
   }
 
   template< class T >
-  bool Stack< T >::operator!=(const Stack& rhs) const
+  bool Queue< T >::operator!=(const Queue& rhs) const
   {
     return !operator==(rhs);
   }
